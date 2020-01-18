@@ -72,19 +72,10 @@ module.exports = {
       }
 
       // If exists, update it
-      // If update just for some fields, it will use old dev info to complete
-      const {
-        name = dev.name,
-        bio = dev.bio,
-        longitude = dev.location.coordinates[0],
-        latitude = dev.location.coordinates[1],
-        avatar_url = dev.avatar_url,
-      } = req.body;
+      const { name, avatar_url, bio, techs, latitude, longitude } = req.body;
 
-      // Check if techs were updated to transform text in Array for each tech
-      const techs = req.body.techs
-        ? parseStringAsArray(req.body.techs)
-        : dev.techs;
+      // Transform techs text in Array for each tech
+      const techsArray = parseStringAsArray(techs);
 
       // Create geolocation for lat & long (based on PointSchema)
       const location = {
@@ -93,13 +84,15 @@ module.exports = {
       };
 
       // Update Dev and return the "updated" Dev
-      const updatedDev = await Dev.findOneAndUpdate(
-        github_username,
-        { name, techs, bio, avatar_url, location },
-        { new: true }
-      );
+      const devUpdated = await dev.update({
+        name,
+        avatar_url,
+        bio,
+        techs: techsArray,
+        location,
+      });
 
-      return res.json(updatedDev);
+      return res.json(devUpdated);
     } catch ({ message }) {
       return res.status(400).json({ message });
     }
@@ -118,7 +111,7 @@ module.exports = {
       }
 
       // Delete user
-      await Dev.findOneAndDelete(github_username);
+      await dev.delete();
 
       return res.send();
     } catch ({ message }) {
