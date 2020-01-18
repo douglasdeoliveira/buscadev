@@ -27,7 +27,8 @@ module.exports = {
     'no-param-reassign': 'off',
     'no-underscore-dangle': 'off',
     camelcase: 'off',
-    'no-console': ['error', { allow: ['tron'] }],
+    'no-alert': 'off',
+    'no-console': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'jsx-a11y/label-has-associated-control': [
