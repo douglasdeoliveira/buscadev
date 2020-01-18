@@ -2,10 +2,11 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { getCurrentPositionAsync, requestPermissionsAsync } from 'expo-location';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Image, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import MapView, { Callout, Marker } from 'react-native-maps';
 
 import api from '../../services/api';
+import { connect, disconnect, subcribeToNewDevs } from '../../services/socket';
 
 import { styles } from './styles';
 
@@ -37,6 +38,17 @@ export default function Main({ navigation }) {
     loadInitialPosition();
   }, []);
 
+  useEffect(() => {
+    subcribeToNewDevs(dev => setDevs([...devs, dev]));
+  }, [devs]);
+
+  function setupWebSocket() {
+    const { latitude, longitude } = currentRegion;
+
+    disconnect();
+    connect(latitude, longitude, techs);
+  }
+
   async function loadDevs() {
     const { latitude, longitude } = currentRegion;
 
@@ -49,6 +61,7 @@ export default function Main({ navigation }) {
     });
 
     setDevs(data);
+    setupWebSocket();
   }
 
   function handleRegionChanged(region) {
@@ -91,7 +104,12 @@ export default function Main({ navigation }) {
           </Marker>
         ))}
       </MapView>
-      <View style={styles.searchForm}>
+      <KeyboardAvoidingView
+        style={styles.searchForm}
+        enabled
+        behavior="padding"
+        keyboardVerticalOffset={100}
+      >
         <TextInput
           style={styles.searchInput}
           placeholder="Buscar devs por techs..."
@@ -100,11 +118,13 @@ export default function Main({ navigation }) {
           autoCorrect={false}
           value={techs}
           onChangeText={setTechs}
+          returnKeyType="send"
+          onSubmitEditing={loadDevs}
         />
         <TouchableOpacity style={styles.loadButton} onPress={loadDevs}>
           <MaterialIcons name="my-location" size={20} color="#fff" />
         </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
     </>
   );
 }

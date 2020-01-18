@@ -27,11 +27,13 @@ export const styles = StyleSheet.create({
   },
   searchForm: {
     position: 'absolute',
-    top: 20,
+    bottom: 20,
     left: 20,
     right: 20,
-    zIndex: 5,
+    // flex: 1,
+    // justifyContent: 'flex-end',
     flexDirection: 'row',
+    zIndex: 5,
   },
   searchInput: {
     flex: 1,
