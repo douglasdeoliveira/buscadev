@@ -24,11 +24,16 @@
 <p align="center">
   <a href="#rocket-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#computer-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-layout">Layout</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#thinking-como-contribuir">Como contribuir</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#memo-licença">Licença</a>
 </p>
 
 <br>
+
+<p align="center">
+  <img alt="Frontend" src=".github/devradar.png" width="100%">
+</p>
 
 ## :rocket: Tecnologias
 
@@ -43,7 +48,11 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 O BuscaDev é um projeto que visa encontrar desenvolvedores de acordo com a sua localização e as tecnologias conhecidas.
 
-Projeto desenvolvido durante a semana OmniStack 10 oferecida pela [Rocketseat](https://rocketseat.com.br)
+## 🔖 Layout
+
+Você pode baixar o layout do projeto no formato `.sketch` através [desse link](.github/DevRadar.sketch).
+
+Para abrir o arquivo no formato `.sketch` em qualquer sistema operacional utilize a ferramenta [Figma](https://figma.com).
 
 ## :thinking: Como contribuir
 
